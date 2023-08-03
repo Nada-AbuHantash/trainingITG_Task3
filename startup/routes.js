@@ -1,6 +1,8 @@
 const express = require('express');
 const error = require('../middleware/error');
-const users= require('../routes/users')
+const users= require('../routes/users');
+const images = require('../routes/images');
+const products= require('../routes/products');
 const sessions=require('../startup/sessions');
 const bodyParser = require('body-parser');
 
@@ -11,5 +13,7 @@ module.exports = function (app) {
     app.set("view engine", "ejs");
     app.use(express.static("public"));
     app.use('/users', users);
+    app.use('/products', products);
+    app.use('/images', images);
     app.use(error);
 }
