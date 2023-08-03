@@ -1,4 +1,3 @@
-const Joi = require('joi');
 const brcypt = require('bcrypt');
 const _ = require('lodash');
 const { User, validate } = require('../models/users');
