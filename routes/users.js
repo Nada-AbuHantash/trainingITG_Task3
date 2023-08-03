@@ -12,7 +12,7 @@ const router = express.Router();
 //     res.render('login');
 // });
 
-router.post('/', async (req, res, resp) => {
+router.post('/login', async (req, res, resp) => {
  
     let user = await User.findOne({ email: req.body.email })
     if (!user) return res.status(404).send('the email not found in database');
@@ -29,7 +29,7 @@ router.post('/', async (req, res, resp) => {
 });
 
 
-router.post('/new', async (req, res) => {
+router.post('/signup', async (req, res) => {
 
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
