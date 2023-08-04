@@ -8,6 +8,11 @@ const cartShcema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    amount: {
+        type: Number,
+        required: true,
+        
+    },
     product: {
         type: new mongoose.Schema({
             name: {
@@ -23,15 +28,7 @@ const cartShcema = new mongoose.Schema({
                 min: 5,
                 max: 5000
             },
-            amount: {
-                type: Number,
-                required: true,
-                validate: {
-                    validator: function (value) {
-                        return value > 0;
-                    },
-                }
-            },
+          
         }),
         required: true
     },
@@ -65,8 +62,7 @@ function validateCart(cart) {
     const schema = {
         productId: Joi.objectId().required(),
         userId: Joi.objectId().required(),
-        totalprice:Joi.number().required(),
-        // product.amount:Joi.number().required(),
+        amount:Joi.number().required(),
 
     };
 

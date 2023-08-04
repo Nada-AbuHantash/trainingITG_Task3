@@ -24,46 +24,66 @@ router.post('/', async (req, res) => {
   const user = await User.findById(req.body.userId);
   if (!user) return res.status(400).send('Invalid user.');
 
-//   if (movie.numberInStock === 0) return res.status(400).send('Movie not in stock.');
-
-  let cart = new Cart({
-    product: {
-      _id: product._id,
-      name: product.name,
-      price: product.price,
-      amount:product.amount
-    },
-    user: {
-      _id: user._id,
-      email: user.email,
-      phone: user.phone
-    },
-    totalprice:req.body.totalprice
+  const existing = await Cart.findOne({
+    'product._id': product._id,
+    'user._id': user._id,
   });
-  
-//   try {
-//     fawn.Task()
-//       .save('rentals', rental)
-//       .update('movies', { _id: movie._id }, {
-//         $inc: {
-//           numberInStock: -1
-//         }
-//       })
-//       .run()
-//   } catch (err) {
-//     res.status(500).send('somthing wrong ...');
-//   }
 
-await cart.save();
+  if (!existing) {
+    const total = product.price * req.body.amount;
+
+    let cart = new Cart({
+      product: {
+        _id: product._id,
+        name: product.name,
+        price: product.price,
+        amount: product.amount
+      },
+      user: {
+        _id: user._id,
+        email: user.email,
+        phone: user.phone
+      },
+      amount: req.body.amount,
+      totalprice: total
+    });
+
+
+    await cart.save();
+    res.send(cart);
+  }
+  else {
+    const newAmount= existing.amount + req.body.amount;
+    const newPrice = newAmount * product.price ;
+
+    const update = await Cart.updateOne(
+      { _id: existing._id },
+      { $set: { 'amount': newAmount ,'totalprice': newPrice}}
+    );
+       
+       res.send(update);
+       
+}
+});
+
+router.get('/:id', async (req, res) => {
+ 
+  const cart = await Cart.find({
+    'user._id': req.params.id,
+  });
+
+  if (!cart) return res.status(404).send('The cart with the given ID was not found.');
+
   res.send(cart);
 });
 
-// router.get('/:id', async (req, res) => {
-//   const rental = await Rental.findById(req.params.id);
+router.post('/delete', async (req, res) => {
+ 
+  const cart = await Cart.findOneAndDelete(req.body.cartId);
 
-//   if (!rental) return res.status(404).send('The rental with the given ID was not found.');
+  if (!cart) return res.status(404).send('The cart with the given ID was not found.');
 
-//   res.send(rental);
-// });
+  res.send(cart);
+});
 
 module.exports = router; 
