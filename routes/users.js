@@ -7,9 +7,9 @@ const auth =require('../middleware/auth');
 const router = express.Router();
 
 
-// router.get('/', async (req, res, resp) => {
-//     res.render('login');
-// });
+router.get('/', async (req, res, resp) => {
+    res.render('signup');
+});
 
 router.post('/login', async (req, res, resp) => {
  
@@ -42,9 +42,7 @@ router.post('/signup', async (req, res) => {
     user.password = await brcypt.hash(user.password, salt);
     await user.save();
    
-    res.send(
-        _.pick(user, ['name', 'email', '_id','isAdmin'])
-    );
+    res.render('login');
   
 });
 
