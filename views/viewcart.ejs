@@ -2,57 +2,66 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>cart Page</title>
-  <link href="/css/style.css" rel="stylesheet">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cart Page</title>
+    <link href="/css/style.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
-  <header>
-    <nav>
+    <header>
+        <nav>
 
 
-      <a href="/products">home</a>
-      
-    </nav>
-  </header>
-  <main>
+            <a href="/products">home</a>
 
-    <div class="product-details">
-      <% for (let carts of cart) { %>
-    
-        <div class="product-info">
-          <h2>
-            <%= carts.product.name %>
-          </h2>
-          <p>&#36;
-            <%= carts.totalprice %>
-          </p>
-          <p>
-            <%= carts.amount %>
-          </p>
-          <form class="login100-form validate-form flex-sb flex-w add-to-cart-form" action="/carts/delete" method="post" id="delete">
-           
-         
-              <input type="hidden" name="cartId" value="<%= carts._id %>">
-             
-              <button type="submit">delete</button>
-              
-          </div>
-          </form>
-            
-            <% } %>
+        </nav>
+    </header>
+    <main>
+
+        <div class="product-details">
+            <% for (let carts of cart) { %>
+
+                <div class="product-info">
+                    <h2>product name :
+                        <%= carts.product.name %>
+                    </h2>
+                    <p>total price to product : &#36;
+                        <%= carts.totalprice %>
+                    </p>
+
+
+                    <form class="login100-form validate-form flex-sb flex-w add-to-cart-form" action="/carts/edit" method="post" id="edit"></form>
+                        amount of product : <input type="number" id="amount" name="amount" min="1" step="1" placeholder="<%= carts.amount %>">
+                    <input type="hidden" name="price" value="<%= carts.product.price %>">
+                    <input type="hidden" name="cartId" value="<%= carts._id %>">
+
+                    <button type="submit">edit</button>
+                    </form>
+
+
+                    <form class="login100-form validate-form flex-sb flex-w add-to-cart-form" action="/carts/delete"
+                        method="post" id="delete">
+
+                        <input type="hidden" name="cartId" value="<%= carts._id %>">
+
+                        <button type="submit">delete</button>
+
+                    </form>
+
+
+                </div>
+                <% } %>
         </div>
-   
-     
-      
-    </div>
-   
-  </main>
 
-  
+
+
+        </div>
+
+    </main>
+
+
 </body>
 
 </html>

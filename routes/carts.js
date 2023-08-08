@@ -95,4 +95,24 @@ const id= req.session.userId ;
   res.redirect(`/carts/${id}`);
 });
 
+
+
+router.post('/edit', async (req, res) => {
+  //  const cart = await Cart.findById(req.body.cartId);
+ 
+    const newAmount= parseInt(req.body.amount);
+    const newPrice = newAmount * parseInt(req.body.price) ;
+
+    const update = await Cart.findByIdAndUpdate(
+      { _id: req.body.cartId },
+      { $set: { 'amount': newAmount ,'totalprice': newPrice}}
+    );
+       
+    const id= req.session.userId ;
+    res.send("done");
+
+    // res.redirect(`/carts/${id}`);
+       
+
+});
 module.exports = router; 
