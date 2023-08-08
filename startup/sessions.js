@@ -8,7 +8,7 @@ module.exports=
         saveUninitialized: false,
         store: store,
         cookie: {
-          maxAge: 3600000 
+          maxAge:  2 * 3600000 
         }
       });
      

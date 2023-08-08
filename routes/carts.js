@@ -53,7 +53,7 @@ router.post('/', async (req, res) => {
     res.send(cart);
   }
   else {
-    const newAmount= existing.amount + req.body.amount;
+    const newAmount= existing.amount + parseInt(req.body.amount);
     const newPrice = newAmount * product.price ;
 
     const update = await Cart.updateOne(
@@ -61,7 +61,9 @@ router.post('/', async (req, res) => {
       { $set: { 'amount': newAmount ,'totalprice': newPrice}}
     );
        
-       res.send(update);
+    
+    req.flash('success', 'Product added to cart successfully!');
+      res.redirect('/products');
        
 }
 });

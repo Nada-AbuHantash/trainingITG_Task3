@@ -6,10 +6,12 @@ const express = require('express');
 const auth =require('../middleware/auth');
 const router = express.Router();
 
+let message=" ";
+
 router.get('/add', async (req, res, resp) => {
     res.render('addproduct');
 });
-router.post('/add', [auth,admin],async (req, res) => {
+router.post('/add',async (req, res) => {
 
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
@@ -27,10 +29,8 @@ router.post('/add', [auth,admin],async (req, res) => {
         image: req.body.imageId,}
     );
     await product.save();
-   
-    res.send(
-        _.pick(product, ['name', 'shortDescribe','category','price'])
-    );
+ 
+    res.render('home');
   
 });
 
@@ -45,6 +45,7 @@ router.get('/',  async function (req, res, next)  {
     //  console.log(  _.pick(allimage, ['uniqueName', 'filePath']));
     // console.log(allimage.filePath);
  const userId=  req.session.userId ;
-    res.render('home',{allProduct,allimage,userId});
+ message=req.flash('success');
+    res.render('home',{allProduct,allimage,userId,message});
 });
 module.exports = router;

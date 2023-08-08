@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Product Page</title>
   <link href="/css/style.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
   <header>
     <nav>
-   
+
 
       <a href="/users/login">login</a>
       <a href="/users/signup">signup</a>
@@ -17,56 +20,74 @@
     </nav>
   </header>
   <main>
-   
+
     <div class="product-details">
       <% for (let product of allProduct) { %>
-        <div class="product-image">   
-          <% for (let image of allimage) { %>
-            <% if (image._id.toString() === product.image.toString()) { %>
-              <img src="<%= image.filePath %>"> 
-            <% } %>
-          <% } %>
+        <div class="product-image">
+          <% for (let images of allimage) { %>
+            <% if (images._id.toString()===product.image.toString()) { %>
+              <img src="<%= images.filePath %>">
+              <% } %>
+                <% } %>
         </div>
-      <div class="product-info">
-        <h2><%= product.name %></h2>
-        <p><%= product.category %></p>
-        <p><%= product.shortDescribe %></p>
-        <p>&#36; <%= product.price %> </p><label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" min="1" step="1">
-        <form class="login100-form validate-form flex-sb flex-w" action="/carts" method="post" id="addTocart">
-        <button type="submit">Add to Cart</button>
-      </div>
-    </form>
-      <% } %>
+        <div class="product-info">
+          <h2>
+            <%= product.name %>
+          </h2>
+          <p>
+            <%= product.category %>
+          </p>
+          <p>
+            <%= product.shortDescribe %>
+          </p>
+          <p>&#36; <%= product.price %>
+          </p>
+          <form class="login100-form validate-form flex-sb flex-w add-to-cart-form" action="/carts" method="post" id="addTocart">
+          <label for="amount">Quantity:</label>
+          <input type="number" id="amount" name="amount" min="1" step="1">
+
+       
+            <input type="hidden" name="productId" value="<%= product._id %>">
+            <input type="hidden" name="userId" value="<%= userId %>">
+            <button type="submit">Add to Cart</button>
+            <% if (message) { %>
+              <div class="success-message">
+                <%= message %>
+              </div>
+            <% } %>
+        </div>
+        </form>
+        <% } %>
+      
     </div>
-
+   
   </main>
-  
-<script>
-  const form = document.getElementById('addTocart');
 
+  <script>
+     const addTocartForms = document.querySelectorAll('.add-to-cart-form');
+ 
+
+addTocartForms.forEach((form) => {
   form.addEventListener('submit', async (event) => {
-  
-    const Data='';
-
+    // event.preventDefault();
     const formData = new FormData(form);
-   
-       Data = {
-        userId: userId,
-        productId: product._id,
-        amount:formData.get('quantity'),
+    const Data = {
+      userId: formData.get('userId'), 
+      productId: formData.get('productId'),
+      amount: formData.get('amount'),
     };
-     console.log(product._id);
-   
-const response = await fetch('/carts', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(Data),
+
+    const response = await fetch('/carts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Data),
+      });
+
+      const data = await response.json();
+     
     });
-    const data = await response.json();
-    window.location.href = `users/login`;
-  
   });
-</script>
+  </script>
 </body>
+
 </html>

@@ -5,11 +5,13 @@ const images = require('../routes/images');
 const products= require('../routes/products');
 const carts= require('../routes/carts');
 const sessions=require('../startup/sessions');
+const flash = require('connect-flash');
 const bodyParser = require('body-parser');
 
 module.exports = function (app) {
     app.use(express.json());
     app.use(sessions);
+    app.use(flash());
     app.use(bodyParser.urlencoded({ extended: true }));
     app.set("view engine", "ejs");
     app.use(express.static("public"));
