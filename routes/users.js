@@ -8,9 +8,14 @@ const router = express.Router();
 
 
 router.get('/', async (req, res, resp) => {
+    res.render('home');
+});
+router.get('/login', async (req, res, resp) => {
+    res.render('login');
+});
+router.get('/signup', async (req, res, resp) => {
     res.render('signup');
 });
-
 router.post('/login', async (req, res, resp) => {
  
     let user = await User.findOne({ email: req.body.email })
@@ -23,7 +28,11 @@ router.post('/login', async (req, res, resp) => {
   
     const token = user.generateAuthToken();
     req.session.auth=token;
-    res.send(token); 
+    const userId=user._id.toString(16);
+    req.session.userId = userId;
+    // console.log(req.session.userId);
+    // res.send(token); 
+     res.redirect('/products');
 
 });
 

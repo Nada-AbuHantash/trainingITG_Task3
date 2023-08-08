@@ -6,7 +6,9 @@ const express = require('express');
 const auth =require('../middleware/auth');
 const router = express.Router();
 
-
+router.get('/add', async (req, res, resp) => {
+    res.render('addproduct');
+});
 router.post('/add', [auth,admin],async (req, res) => {
 
     const { error } = validate(req.body);
@@ -35,7 +37,14 @@ router.post('/add', [auth,admin],async (req, res) => {
 router.get('/',  async function (req, res, next)  {
    
     const allProduct = await Product.find();
-    // const allimage = await Image.find();
-    res.status(200).send(allProduct);
+
+     const allimage = await Image
+     .find(  { _id: { $in: allProduct.map((product) => product.image) } });
+    //  const filePaths = allimage.map((image) => image.filePath);
+    //  console.log(filePaths);
+    //  console.log(  _.pick(allimage, ['uniqueName', 'filePath']));
+    // console.log(allimage.filePath);
+ const userId=  req.session.userId ;
+    res.render('home',{allProduct,allimage,userId});
 });
 module.exports = router;
