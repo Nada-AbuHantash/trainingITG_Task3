@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>cart Page</title>
+  <link href="/css/style.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <header>
+    <nav>
+
+
+      <a href="/products">home</a>
+      
+    </nav>
+  </header>
+  <main>
+
+    <div class="product-details">
+      <% for (let carts of cart) { %>
+    
+        <div class="product-info">
+          <h2>
+            <%= carts.product.name %>
+          </h2>
+          <p>&#36;
+            <%= carts.totalprice %>
+          </p>
+          <p>
+            <%= carts.amount %>
+          </p>
+          <form class="login100-form validate-form flex-sb flex-w add-to-cart-form" action="/carts/delete" method="post" id="delete">
+           
+         
+              <input type="hidden" name="cartId" value="<%= carts._id %>">
+             
+              <button type="submit">delete</button>
+              
+          </div>
+          </form>
+            
+            <% } %>
+        </div>
+   
+     
+      
+    </div>
+   
+  </main>
+
+  
+</body>
+
+</html>

@@ -13,6 +13,10 @@ const router = express.Router();
 //   res.send(cart);
 // });
 
+
+// router.get('/', async (req, res, resp) => {
+//   res.render('addproduct');
+// });
 router.post('/', async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -50,7 +54,9 @@ router.post('/', async (req, res) => {
 
 
     await cart.save();
-    res.send(cart);
+
+    req.flash('success', 'Product added to cart successfully!');
+    res.redirect('/products');
   }
   else {
     const newAmount= existing.amount + parseInt(req.body.amount);
@@ -76,7 +82,8 @@ router.get('/:id', async (req, res) => {
 
   if (!cart) return res.status(404).send('The cart with the given ID was not found.');
 
-  res.send(cart);
+  // res.send(cart);
+  res.render('viewcart',{cart});
 });
 
 router.post('/delete', async (req, res) => {
@@ -84,8 +91,8 @@ router.post('/delete', async (req, res) => {
   const cart = await Cart.findOneAndDelete(req.body.cartId);
 
   if (!cart) return res.status(404).send('The cart with the given ID was not found.');
-
-  res.send(cart);
+const id= req.session.userId ;
+  res.redirect(`/carts/${id}`);
 });
 
 module.exports = router; 
