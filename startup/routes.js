@@ -3,6 +3,7 @@ const error = require('../middleware/error');
 const users= require('../routes/users');
 const images = require('../routes/images');
 const products= require('../routes/products');
+const checkout= require('../routes/checkout');
 const carts= require('../routes/carts');
 const sessions=require('../startup/sessions');
 const flash = require('connect-flash');
@@ -18,6 +19,7 @@ module.exports = function (app) {
     app.use('/users', users);
     app.use('/products', products);
     app.use('/images', images);
+    app.use('/checkout', checkout);
     app.use('/carts', carts);
     app.use(error);
 }
