@@ -44,6 +44,7 @@ router.post('/signup', async (req, res) => {
 
     let user = await User.findOne({ email: req.body.email })
     if (user) return res.status(400).send('the email already exite');
+    
     user = new User(
         _.pick(req.body, ['name', 'email', 'password' ,'phone','isAdmin'])
     );
