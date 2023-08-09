@@ -83,11 +83,13 @@ router.get('/:id', async (req, res) => {
   if (!cart) return res.status(404).send('The cart with the given ID was not found.');
 
   let total = 0;
+  let item=0;
   cart.forEach(cart => {
     total += cart.totalprice;
+    item+=1;
   });
-
-  res.render('viewcart',{cart,total});
+console.log(item);
+  res.render('viewcart',{cart,total,item});
 });
 
 router.post('/delete', async (req, res) => {
