@@ -30,8 +30,8 @@ router.post('/login', async (req, res, resp) => {
     req.session.auth=token;
     const userId=user._id.toString(16);
     req.session.userId = userId;
-    // console.log(req.session.userId);
-    // res.send(token); 
+    req.session.isAdmin = user.isAdmin;
+    
      res.redirect('/products');
 
 });
@@ -56,12 +56,15 @@ router.post('/signup', async (req, res) => {
   
 });
 
-router.get('/logout',[auth,admin],  function (req, res, next)  {
+router.get('/logout', function (req, res, next)  {
    
-    if (req.session.auth) {
-          req.session.auth = ' ';
-          res.send(" logout ");
+    if (req.session.userId) {
+          req.session.userId = '';
+          req.session.isAdmin = false;
+        //   res.send(" logout ");
+        res.redirect('/products');
     }
-    res.send(" logout done");
+    // res.send(" logout done");
+    res.redirect('/products');
 });
 module.exports = router;

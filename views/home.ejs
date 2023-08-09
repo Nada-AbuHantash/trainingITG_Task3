@@ -12,11 +12,15 @@
 <body>
   <header>
     <nav>
-
-      <a href="/users/login">login</a>
+      <% if (userId){ %>
+      <a href="/users/logout">logout</a>
+      <% }else { %>
+        <a href="/users/login">login</a>
+        <% } %>
       <a href="/users/signup">signup</a>
+      <% if (isAdmin){ %>
       <a href="/products/add">add product</a>
-      
+      <% } %>
       <% if (userId){ %>
       <a href="/carts/<%= userId %>">Cart</a>
       <% } %>

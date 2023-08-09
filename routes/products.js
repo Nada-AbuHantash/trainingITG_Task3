@@ -48,6 +48,7 @@ router.get('/', async function (req, res, next) {
     // console.log(allimage.filePath);
     const userId = req.session.userId;
     message = req.flash('success');
-    res.render('home', { allProduct, allimage, userId, message });
+    const isAdmin=req.session.isAdmin;
+    res.render('home', { allProduct, allimage, userId, message ,isAdmin});
 });
 module.exports = router;
