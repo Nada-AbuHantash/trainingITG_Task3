@@ -13,17 +13,17 @@
   <header>
     <nav>
       <% if (userId){ %>
-      <a href="/users/logout">logout</a>
-      <% }else { %>
-        <a href="/users/login">login</a>
-        <% } %>
-      <a href="/users/signup">signup</a>
-      <% if (isAdmin){ %>
-      <a href="/products/add">add product</a>
-      <% } %>
-      <% if (userId){ %>
-      <a href="/carts/<%= userId %>">Cart</a>
-      <% } %>
+        <a href="/users/logout">logout</a>
+        <a href="/carts/<%= userId %>">Cart</a>
+        <% }else { %>
+          <a href="/users/login">login</a>
+          <a href="/users/signup">signup</a>
+          <% } %>
+
+            <% if (isAdmin){ %>
+              <a href="/products/add">add product</a>
+              <% } %>
+                
     </nav>
   </header>
   <main>
@@ -49,28 +49,30 @@
           </p>
           <p>&#36; <%= product.price %>
           </p>
-          <form class="login100-form validate-form flex-sb flex-w add-to-cart-form" action="/carts" method="post" id="addTocart">
-          <label for="amount">Quantity:</label>
-          <input type="number" id="amount" name="amount" min="1" step="1">
+          <form class="login100-form validate-form flex-sb flex-w add-to-cart-form" action="/carts" method="post"
+            id="addTocart">
+            <label for="amount">Quantity:</label>
+            <input type="number" id="amount" name="amount" min="1" step="1">
 
-       
+
             <input type="hidden" name="productId" value="<%= product._id %>">
             <input type="hidden" name="userId" value="<%= userId %>">
+            <% if (userId){ %>
             <button type="submit">Add to Cart</button>
-            
+            <% } %>
         </div>
         </form>
         <% } %>
-      
+
     </div>
     <% if (message) { %>
       <div class="success-message">
         <%= message %>
       </div>
-    <% } %>
+      <% } %>
   </main>
 
-  
+
 </body>
 
 </html>
