@@ -40,7 +40,7 @@
 <div class="limiter">
 <div class="container-login100">
 <div class="wrap-login100 p-t-50 p-b-90">
-<form class="login100-form validate-form flex-sb flex-w" action="/products/add" method="post" id="formaddproduct">
+<form class="login100-form validate-form flex-sb flex-w" action="/products/add" method="post" id="formaddproduct" enctype="multipart/form-data">
 <span class="login100-form-title p-b-51">
 Add Product
 </span>
@@ -65,8 +65,8 @@ Add Product
 <input class="input100" type="text" name="category" placeholder="category">
 <span class="focus-input100"></span>
 </div>
-<div class="wrap-input100 validate-input m-b-16" data-validate="imageId is required">
-<input class="input100" type="text" name="imageId" placeholder="imageId">
+<div class="wrap-input100 validate-input m-b-16" data-validate="file is required">
+<input class="input100" type="file" id="file" placeholder="Choose image" name="file" >
 <span class="focus-input100"></span>
 </div>
 <h4><%= message %></h4>

@@ -51,13 +51,14 @@
           </p>
           <form class="login100-form validate-form flex-sb flex-w add-to-cart-form" action="/carts" method="post"
             id="addTocart">
+            <% if (userId){ %>
             <label for="amount">Quantity:</label>
             <input type="number" id="amount" name="amount" min="1" step="1">
 
 
             <input type="hidden" name="productId" value="<%= product._id %>">
             <input type="hidden" name="userId" value="<%= userId %>">
-            <% if (userId){ %>
+          
             <button type="submit">Add to Cart</button>
             <% } %>
         </div>
