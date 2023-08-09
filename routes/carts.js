@@ -108,14 +108,13 @@ router.post('/edit', async (req, res) => {
     const newPrice = newAmount * parseInt(req.body.price) ;
 
     const update = await Cart.findByIdAndUpdate(
-      { _id: req.body.cartId },
+      { '_id': req.body.cartId },
       { $set: { 'amount': newAmount ,'totalprice': newPrice}}
     );
-       
+      
     const id= req.session.userId ;
     
     res.redirect(`/carts/${id}`);
-       
 
 });
 module.exports = router; 

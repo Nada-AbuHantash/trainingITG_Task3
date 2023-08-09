@@ -32,11 +32,13 @@
                     </p>
 
                     <form class="login100-form validate-form flex-sb flex-w add-to-cart-form" action="/carts/edit"
-                        method="post"></form>
+                        method="post">
                     amount of product : <input type="number"  name="amount" min="1" step="1" placeholder="<%= carts.amount %>">
                     <input type="hidden" name="price" value="<%= carts.product.price %>">
                     <input type="hidden" name="cartId" value="<%= carts._id %>">
-                    <!-- <button type="submit">edit</button> -->
+                    <div>
+                    <button type="submit">edit</button>
+                </div>
                     </form>
 
                     <form class="login100-form validate-form flex-sb flex-w add-to-cart-form" action="/carts/delete"
