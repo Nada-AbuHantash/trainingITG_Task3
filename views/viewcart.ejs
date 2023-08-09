@@ -27,19 +27,17 @@
                     <h2>product name :
                         <%= carts.product.name %>
                     </h2>
-                    <p>total price to product : &#36;
+                    <p>price to product : &#36;
                         <%= carts.totalprice %>
                     </p>
 
-
-                    <form class="login100-form validate-form flex-sb flex-w add-to-cart-form" action="/carts/edit" method="post" id="edit"></form>
-                        amount of product : <input type="number" id="amount" name="amount" min="1" step="1" placeholder="<%= carts.amount %>">
+                    <form class="login100-form validate-form flex-sb flex-w add-to-cart-form" action="/carts/edit"
+                        method="post"></form>
+                    amount of product : <input type="number"  name="amount" min="1" step="1" placeholder="<%= carts.amount %>">
                     <input type="hidden" name="price" value="<%= carts.product.price %>">
                     <input type="hidden" name="cartId" value="<%= carts._id %>">
-
-                    <button type="submit">edit</button>
+                    <!-- <button type="submit">edit</button> -->
                     </form>
-
 
                     <form class="login100-form validate-form flex-sb flex-w add-to-cart-form" action="/carts/delete"
                         method="post" id="delete">
@@ -54,7 +52,9 @@
                 </div>
                 <% } %>
         </div>
-
+        <h2>
+            total price : <%= total %>
+        </h2>
 
 
         </div>

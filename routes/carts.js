@@ -82,13 +82,18 @@ router.get('/:id', async (req, res) => {
 
   if (!cart) return res.status(404).send('The cart with the given ID was not found.');
 
-  // res.send(cart);
-  res.render('viewcart',{cart});
+  let total = 0;
+  cart.forEach(cart => {
+    total += cart.totalprice;
+  });
+
+  res.render('viewcart',{cart,total});
 });
 
 router.post('/delete', async (req, res) => {
  
-  const cart = await Cart.findOneAndDelete(req.body.cartId);
+  const cart = await Cart.findOneAndDelete({
+    '_id' : req.body.cartId});
 
   if (!cart) return res.status(404).send('The cart with the given ID was not found.');
 const id= req.session.userId ;
@@ -98,7 +103,6 @@ const id= req.session.userId ;
 
 
 router.post('/edit', async (req, res) => {
-  //  const cart = await Cart.findById(req.body.cartId);
  
     const newAmount= parseInt(req.body.amount);
     const newPrice = newAmount * parseInt(req.body.price) ;
@@ -109,9 +113,8 @@ router.post('/edit', async (req, res) => {
     );
        
     const id= req.session.userId ;
-    res.send("done");
-
-    // res.redirect(`/carts/${id}`);
+    
+    res.redirect(`/carts/${id}`);
        
 
 });
