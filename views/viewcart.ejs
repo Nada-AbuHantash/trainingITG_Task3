@@ -55,7 +55,7 @@
                 <% } %>
         </div>
         <h2>
-            total price : <%= item %>
+            total price : <%= total %>
         </h2>
         <h2>
             item : <%= item %>
@@ -63,11 +63,7 @@
        
         <form class="login100-form validate-form flex-sb flex-w add-to-cart-form" action="/checkout/<%= item %>/<%= total %>"
         method="get" >
-        <% for (let carts of cart) { %>
-            <input type="hidden" name="cartIds[]" value="<%= carts._id %>">
-        <% } %>
-        <!-- <input type="hidden" name="item" value="<%= item %>">
-        <input type="hidden" name="totalprice" value="<%= total %>"> -->
+        
         <button type="submit">checkout</button>
 
     </form>

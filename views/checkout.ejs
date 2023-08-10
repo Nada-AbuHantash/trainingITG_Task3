@@ -33,36 +33,44 @@
 <div class="limiter">
 <div class="container-login100">
 <div class="wrap-login100 p-t-50 p-b-90">
-<form class="login100-form validate-form flex-sb flex-w"  id="checkoutForm">
+<form class="login100-form validate-form flex-sb flex-w"  id="checkoutForm" action="/checkout" method="post" >
 <span class="login100-form-title p-b-51">
 checkout
+<div class="success-message">
+        <%= message %>
+      </div>
+      
 </span>
 
-<div class="wrap-input100 validate-input m-b-16" data-validate="Username is required">
-<input class="input100" type="text" name="name" placeholder="<%=user.name %>" value="<%=user.name %>">
+Username :<div class="wrap-input100 validate-input m-b-16" data-validate="Username is required">
+ <input class="input100" type="text" name="name" placeholder="<%=user.name %>" value="<%=user.name %>" disabled>
 <span class="focus-input100"></span>
 </div>
-<div class="wrap-input100 validate-input m-b-16" data-validate="phone is required">
-<input class="input100" type="text" name="number" placeholder="<%=user.phone %>" value="<%=user.phone %>">
+phone:<div class="wrap-input100 validate-input m-b-16" data-validate="phone is required">
+ <input class="input100" type="text" name="number" placeholder="<%=user.phone %>" value="<%=user.phone %>" disabled >
 <span class="focus-input100"></span>
 </div>
-<div class="wrap-input100 validate-input m-b-16" data-validate="tota; is required">
-<input class="input100" type="number" name="totalprice" placeholder="totalprice" value="<%= totalprice %>">
+total price :<div class="wrap-input100 validate-input m-b-16" data-validate="tota; is required"  >
+<input class="input100" type="number" name="totalprice"  value="<%= totalprice %>" disabled>
 <span class="focus-input100"></span>
 </div>
-<div class="wrap-input100 validate-input m-b-16" data-validate="item is required">
-<input class="input100" type="number" name="item" placeholder="item" value="<%= item %>">
+item :<div class="wrap-input100 validate-input m-b-16" data-validate="item is required">
+<input class="input100" type="lable" name="item"  value="<%= item %>" disabled>
 <span class="focus-input100"></span>
 </div>
-<div class="wrap-input100 validate-input m-b-16" data-validate="paymentway is required">
-<input class="input100" type="text" name="paymentway" placeholder="payment way">
+payment way :<div class="wrap-input100 validate-input m-b-16" data-validate="paymentway is required">
+ <input class="input100" type="text" name="paymentway" placeholder="payment way">
 <span class="focus-input100"></span>
 </div>
-<div class="wrap-input100 validate-input m-b-16" data-validate="address is required">
-<input class="input100" type="text" name="address" placeholder="address">
+address :<div class="wrap-input100 validate-input m-b-16" data-validate="address is required">
+ <input class="input100" type="text" name="address" placeholder="address">
 <span class="focus-input100"></span>
 </div>
 
+     
+        <input type="hidden" name="userId" value="<%= user._id %>">
+        <input type="hidden" name="item" value="<%= item %>">
+        <input type="hidden" name="totalprice" value="<%= totalprice %>">
 <div class="container-login100-form-btn m-t-17">
 <button class="login100-form-btn" type="submit">
 checked
@@ -104,31 +112,31 @@ checked
 <script>
 
 
-const form = document.getElementById('checkoutForm');
+// const form = document.getElementById('checkoutForm');
    
-   form.addEventListener('submit', async (event) => {
-     event.preventDefault();
+//    form.addEventListener('submit', async (event) => {
+//      event.preventDefault();
 
-     const formData = new FormData(form);
+//      const formData = new FormData(form);
     
-     const pollData = {
-        userId: user._id,
-       cart: cartId,
-       item:formData.getElementById('item'),
-       totalprice:formData.getElementById('totalprice'),
-       address:formData.getElementById('address'),
-       paymentway:formData.getElementById('paymentway')
-     };
+//      const pollData = {
+//         userId: user._id,
+//        cart: cartId,
+//        item:formData.getElementById('item'),
+//        totalprice:formData.getElementById('totalprice'),
+//        address:formData.getElementById('address'),
+//        paymentway:formData.getElementById('paymentway')
+//      };
     
-     const response = await fetch('/checkout', {
-       method: 'POST',
-       headers: { 'Content-Type': 'application/json' },
-       body: JSON.stringify(pollData),
-     });
+//      const response = await fetch('/checkout', {
+//        method: 'POST',
+//        headers: { 'Content-Type': 'application/json' },
+//        body: JSON.stringify(pollData),
+//      });
 
-     const data = await response.json();
+//      const data = await response.json();
     
-   });
+//    });
 </script>
 
 </body>

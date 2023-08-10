@@ -14,13 +14,6 @@ const checkoutShcema = new mongoose.Schema({
         required: true,
         
     },
-    cart:
-     [{
-        product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
-        amount: Number,
-       
-      }],
-       
     
     user: {
         type: new mongoose.Schema({
@@ -54,16 +47,14 @@ const checkoutShcema = new mongoose.Schema({
     },
 });
 
-checkoutShcema.statics.lookup = function (cartId, userId) {
+checkoutShcema.statics.lookup = function ( userId) {
     return this.findOne({
-        'cart._id': cartId,
         'user._id': userId
     });
 };
 
 function validateOrder(order) {
     const schema = {
-        cartId: Joi.objectId().required(),
         userId: Joi.objectId().required(),
         item:Joi.number().required(),
         totalprice:Joi.number().required(),
