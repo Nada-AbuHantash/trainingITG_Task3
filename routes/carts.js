@@ -86,7 +86,7 @@ router.get('/:id', async (req, res) => {
   let item=0;
   cart.forEach(cart => {
     total += cart.totalprice;
-    item+=1;
+    item += cart.amount;
   });
 console.log(item);
   res.render('viewcart',{cart,total,item});
